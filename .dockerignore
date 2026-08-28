@@ -1,0 +1,10 @@
+build/
+cmake-build-*/
+out/
+.git/
+.idea/
+node_modules/
+web/dist/
+CMakeUserPresets.json
+*.log
+.DS_Store

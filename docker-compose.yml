@@ -1,0 +1,16 @@
+services:
+  catalogue:
+    build:
+      context: .
+      dockerfile: services/catalogue/Dockerfile
+    image: collector/catalogue:dev
+    container_name: collector-catalogue
+    ports:
+      - "8080:8080"
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://localhost:8080/health"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+      start_period: 10s
+    restart: unless-stopped
