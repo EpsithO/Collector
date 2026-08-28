@@ -4,10 +4,13 @@ FROM debian:bookworm AS builder
 RUN apt-get update && apt-get install -y --no-install-recommends \
         build-essential cmake git pkg-config \
         python3 python3-pip ca-certificates \
+        build-essential cmake git pkg-config gdb \
     && rm -rf /var/lib/apt/lists/*
 
 RUN pip3 install --break-system-packages --no-cache-dir conan \
     && conan profile detect --force
+
+
 
 WORKDIR /src
 
@@ -39,6 +42,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 RUN useradd --system --uid 10001 --no-create-home collector
 
 COPY --from=builder /build/bin/catalogue /usr/local/bin/catalogue
+
+RUN mkdir -p /app/uploads && chown -R 10001:10001 /app
+WORKDIR /app
 
 USER 10001
 EXPOSE 8080

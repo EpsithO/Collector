@@ -1,12 +1,38 @@
 services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: collector-postgres
+    environment:
+      POSTGRES_DB: collector
+      POSTGRES_USER: collector
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-devpassword}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./db/init:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U collector -d collector"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+      start_period: 10s
+    restart: unless-stopped
+
   catalogue:
     build:
       context: .
       dockerfile: services/catalogue/Dockerfile
     image: collector/catalogue:dev
-    container_name: collector-catalogue
     ports:
       - "8080:8080"
+    environment:
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: collector
+      DB_USER: collector
+      DB_PASSWORD: ${POSTGRES_PASSWORD:-devpassword}
+    depends_on:
+      postgres:
+        condition: service_healthy
     healthcheck:
       test: ["CMD", "curl", "-fsS", "http://localhost:8080/health"]
       interval: 10s
@@ -14,3 +40,6 @@ services:
       retries: 5
       start_period: 10s
     restart: unless-stopped
+
+volumes:
+  pgdata:

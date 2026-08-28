@@ -4,3 +4,7 @@ drogon/1.9.6
 [generators]
 CMakeDeps
 CMakeToolchain
+
+[options]
+drogon/*:with_orm=True
+drogon/*:with_postgres=True
