@@ -7,5 +7,7 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
 find_package(Drogon CONFIG REQUIRED)
+find_package(rabbitmq-c REQUIRED)
+
 
 add_subdirectory(services/catalogue)

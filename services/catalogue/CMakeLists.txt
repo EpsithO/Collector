@@ -3,3 +3,4 @@ add_executable(catalogue
 )
 
 target_link_libraries(catalogue PRIVATE Drogon::Drogon)
+target_link_libraries(catalogue PRIVATE rabbitmq::rabbitmq-static)

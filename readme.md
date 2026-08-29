@@ -34,7 +34,7 @@ CollectorCesi/
 ├─ .dockerignore
 ├─ db/
 │  └─ init/
-│     └─ 01_schema.sql         exécuté au 1er démarrage de postgres
+│     └─ 01_schema.sql.old         exécuté au 1er démarrage de postgres
 └─ services/
    └─ catalogue/
       ├─ CMakeLists.txt        add_executable(catalogue ...)
