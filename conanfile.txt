@@ -1,6 +1,5 @@
 [requires]
 drogon/1.9.6
-amqp-cpp/4.3.27
 rabbitmq-c/0.17.0
 
 [generators]
