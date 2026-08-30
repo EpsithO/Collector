@@ -16,7 +16,7 @@ namespace collector {
 namespace {
 
 constexpr amqp_channel_t kChannel           = 1;
-constexpr int            kHeartbeatSec      = 30;
+constexpr int            kHeartbeatSec      = 0;
 constexpr int            kConfirmTimeoutSec = 5;
 
 std::string describe(amqp_rpc_reply_t reply, const std::string& context) {
@@ -218,6 +218,7 @@ void RabbitMqEventPublisher::publish(const std::string& routingKey,
         impl_->disconnect();
         throw;
     }
+    amqp_maybe_release_buffers(impl_->conn);
 }
 
 }

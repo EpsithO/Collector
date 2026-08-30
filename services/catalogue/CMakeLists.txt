@@ -6,6 +6,7 @@ add_executable(catalogue
         src/messaging/EventPublisher.hpp
         src/messaging/RabbitMqEventPublisher.hpp
         src/messaging/RabbitMqEventPublisher.cpp
+        src/messaging/RabbitMqEventPublisher.cpp
 )
 
 target_link_libraries(catalogue PRIVATE
